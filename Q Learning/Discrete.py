@@ -14,10 +14,11 @@ discount_factor = 0.99
 epsilon = 1.0
 epsilon_decay = 0.99
 min_epsilon = 0.01
-num_episodes = 1024
+num_episodes = 4096
 
 # Run Q-learning algorithm
 scores = []
+maxx = 0
 for episode in range(num_episodes):
     state = env.reset()
     done = False
@@ -45,14 +46,17 @@ for episode in range(num_episodes):
 
         state = next_state
         score += reward
-
+        if score > maxx:
+            maxx = score
+        else:
+            maxx = maxx
     # Decay epsilon
     epsilon = max(min_epsilon, epsilon * epsilon_decay)
 
     # Save and print scores 
     scores.append(score)
     avg_score = np.mean(scores[-100:])
-    print(f"Episode {episode+1}/{num_episodes} - Score: {score}, Avg. Score: {avg_score:.2f}")
+    print(f"Episode {episode+1}/{num_episodes} - Score: {score}, Avg. Score: {avg_score:.2f}, Max Score: {maxx}")
 
 # Play the game using the learned Q-table
 state = env.reset()
