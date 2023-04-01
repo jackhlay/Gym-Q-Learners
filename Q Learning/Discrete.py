@@ -49,6 +49,7 @@ for episode in range(num_episodes):
     # Decay epsilon
     epsilon = max(min_epsilon, epsilon * epsilon_decay)
 
+    # Save and print scores
     scores.append(score)
     avg_score = np.mean(scores[-100:])
     print(f"Episode {episode+1}/{num_episodes} - Score: {score}, Avg. Score: {avg_score:.2f}")
