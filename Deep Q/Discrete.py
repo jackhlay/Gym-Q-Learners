@@ -10,7 +10,7 @@ env = gym.make('CartPole-v1')
 states = env.observation_space.shape
 actions = env.action_space.n
 
-episodes = 1024
+episodes = 4096
 scores=[]
 for ep in range(1,episodes+1):
     state= env.reset()

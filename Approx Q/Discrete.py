@@ -21,8 +21,9 @@ num_actions = env.action_space.n
 weights = np.random.rand(num_states, num_actions)
 
 # define training loop
-episodes = 1024
+episodes = 4096
 scores = []
+maxx=0
 for ep in range(1, episodes+1):
     state = env.reset()
     done = False
@@ -53,6 +54,10 @@ for ep in range(1, episodes+1):
         # update state and score
         state = next_state
         score += reward
+        if maxx<score:
+            maxx=score
+        else:
+            maxx=maxx
 
     # update epsilon
     epsilon = max(epsilon_min, epsilon_decay * epsilon)
@@ -73,5 +78,5 @@ while not done:
     next_state, reward, done, _ = env.step(action)
     state = next_state
     score += reward
-print(f"Final Score: {score}")
+print(f"Final Avg: {avg_score:.2f}, max score: {maxx}")
 env.close()
