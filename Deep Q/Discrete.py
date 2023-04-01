@@ -10,7 +10,7 @@ env = gym.make('CartPole-v1')
 states = env.observation_space.shape
 actions = env.action_space.n
 
-episodes = 4096
+episodes = 512
 scores=[]
 for ep in range(1,episodes+1):
     state= env.reset()
@@ -42,11 +42,11 @@ model = build_model(states, actions)
 model.compile(loss='mse', optimizer=Adam(lr=1e-3), metrics=['mse'])
 
 # define hyperparameters
-gamma = 0.99  # discount factor
-epsilon = 1.0  # exploration rate
-epsilon_min = 0.01
+gamma = 1  # discount factor
+epsilon = .99  # exploration rate
+epsilon_min = 0.01  # minimum exploration rate
 epsilon_decay = 0.995
-batch_size = 128  # minibatch size
+batch_size = 256  # minibatch size
 replay_memory = []  # replay memory
 
 # train model

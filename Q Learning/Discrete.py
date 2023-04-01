@@ -10,12 +10,12 @@ actions = [0, 1]
 q_table = np.zeros((len(states), len(states), len(actions)))
 
 # Set hyperparameters
-learning_rate = 0.1
-discount_factor = 0.99
-epsilon = 1.0
-epsilon_decay = 0.99
-min_epsilon = 0.01
-num_episodes = 4096
+learning_rate = 0.001 # alpha
+discount_factor = 0.9 # gamma
+epsilon = 1
+epsilon_decay = 0.95
+min_epsilon = 0.001
+num_episodes = 2000
 
 # Run Q-learning algorithm
 scores = []
