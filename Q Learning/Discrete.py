@@ -1,6 +1,7 @@
 import gym
 import numpy as np
 
+# Can only run cartpole right now :(
 env = gym.make('CartPole-v0')
 
 # Initialize Q-table

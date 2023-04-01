@@ -22,7 +22,7 @@ for ep in range(1,episodes+1):
         action = random.choice([0,1])
         n_state, reward, done, info = env.step(action)
         score+=reward
-        print('Episode:{} Score:{}'.format(ep,score))
+    print('Episode:{} Score:{}'.format(ep,score))
     scores.append(score)
 avg_score = np.mean(scores)
 print(f"Average score per episode: {avg_score}, Max score: {max(scores)}")
@@ -39,14 +39,14 @@ from keras.optimizers import Adam
 
 model = build_model(states, actions)
 
-model.compile(loss='mse', optimizer=Adam(lr=1e-3), metrics=['mae'])
+model.compile(loss='mse', optimizer=Adam(lr=1e-3), metrics=['mse'])
 
 # define hyperparameters
 gamma = 0.99  # discount factor
 epsilon = 1.0  # exploration rate
 epsilon_min = 0.01
 epsilon_decay = 0.995
-batch_size = 32  # minibatch size
+batch_size = 128  # minibatch size
 replay_memory = []  # replay memory
 
 # train model
