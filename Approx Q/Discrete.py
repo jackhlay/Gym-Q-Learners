@@ -21,7 +21,7 @@ num_actions = env.action_space.n
 weights = np.random.rand(num_states, num_actions)
 
 # define training loop
-episodes = 4096
+episodes = 1024
 scores = []
 maxx=0
 for ep in range(1, episodes+1):

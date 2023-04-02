@@ -15,7 +15,7 @@ discount_factor = 0.99
 epsilon = 1.0
 epsilon_decay = 0.99
 min_epsilon = 0.01
-num_episodes = 512
+num_episodes = 1024
 
 # Run Q-learning algorithm
 scores = []
