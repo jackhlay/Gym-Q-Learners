@@ -1,6 +1,8 @@
 import gym
 import numpy as np
+import time
 
+start = time.time()
 # Can only run cartpole right now :(
 env = gym.make('CartPole-v0')
 
@@ -15,7 +17,7 @@ discount_factor = 0.99
 epsilon = 1.0
 epsilon_decay = 0.99
 min_epsilon = 0.01
-num_episodes = 1024
+num_episodes = 4200 #wanted to do 4196, but it plots data every 100 episodes
 
 # Run Q-learning algorithm
 scores = []
@@ -56,7 +58,7 @@ for episode in range(num_episodes):
 
     # Save and print scores 
     scores.append(score)
-    avg_score = np.mean(scores[-100:])
+    avg_score = np.mean(scores[-10:])
     print(f"Episode {episode+1}/{num_episodes} - Score: {score}, Avg. Score: {avg_score:.2f}, Max Score: {maxx}")
 
 # Play the game using the learned Q-table
@@ -69,3 +71,28 @@ while not done:
     state, _, done, _ = env.step(action)
     env.render()
 env.close()
+
+import matplotlib.pyplot as plt
+
+# Plot average score over time
+avgs = []
+for i in range(100, num_episodes+1, 100):
+    avg = np.mean(scores[i-100:i])
+    avgs.append(avg)
+
+xax = np.arange(len(avgs))
+slope, intercept = np.polyfit(xax, avgs, 1)
+trendline_y = slope * xax + intercept
+
+fig, ax = plt.subplots()
+ax.plot(xax, trendline_y, linestyle='-.', color='goldenrod')
+ax.plot(xax, avgs, linestyle='-', color='orangered', marker='o')
+ax.set_xlabel('Episode (x100)')
+ax.set_ylabel('Avg Score')
+ax.set_title('Average Score/Time')
+ax.set_facecolor("dimgray")
+fig.set_facecolor("dimgray")
+plt.show()
+
+tot = time.time() - start
+print(f"Time: {tot:.4f} seconds")

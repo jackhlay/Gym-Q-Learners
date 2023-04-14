@@ -1,5 +1,6 @@
 import gym
 import numpy as np
+import matplotlib.pyplot as plt
 
 games= ['CartPole-v1','MountainCar-v0', 'Acrobot-v1']
 env = gym.make('CartPole-v1')
@@ -21,8 +22,9 @@ num_actions = env.action_space.n
 weights = np.random.rand(num_states, num_actions)
 
 # define training loop
-episodes = 1024
+episodes = 10000
 scores = []
+avgs= []
 maxx=0
 for ep in range(1, episodes+1):
     state = env.reset()
@@ -65,6 +67,7 @@ for ep in range(1, episodes+1):
     # print progress
     scores.append(score)
     avg_score = np.mean(scores[-100:])
+    avgs.append(avg_score)
     print(f"Episode {ep}: Score {score}, Avg Score {avg_score:.2f}")
 
 # test final policy
@@ -80,3 +83,18 @@ while not done:
     score += reward
 print(f"Final Avg: {avg_score:.2f}, max score: {maxx}")
 env.close()
+
+#normalize avg scores
+avgs= np.array(avgs[::100])
+xax = np.array(range(len(avgs)))
+slope, intercept = np.polyfit(xax, avgs, 1)
+trendline_x = np.array([np.min(xax), np.max(xax)])
+trendline_y = slope * trendline_x + intercept
+
+fig, ax = plt.subplots()
+ax.plot(trendline_x, trendline_y, color='red', linestyle=':')
+ax.plot(xax, avgs, color='steelblue', linestyle='-.', marker='o')
+ax.set_xlabel('Attempts (x100)')
+ax.set_ylabel('Avg Score')
+ax.set_title('Average Score/Time')
+plt.show()
