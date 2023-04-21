@@ -6,6 +6,8 @@ __pycache__/
 # C extensions
 *.so
 
+Vid Rough.mp4
+
 # Distribution / packaging
 .Python
 build/
@@ -127,3 +129,6 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+Video/QL/AI Vid Rough.mp4
+Video/QL/AI Sped up.mp4
+*.mp4
